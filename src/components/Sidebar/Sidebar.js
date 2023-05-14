@@ -1,7 +1,7 @@
 import React from "react";
 import './Sidebar.css';
 import SidebarChat from "../SidebarChat/SidebarChat";
-import {Avatar, Icon, IconButton} from "@mui/material";
+import {Avatar, IconButton} from "@mui/material";
 import DonutLargeIcon from '@mui/icons-material/DonutLarge';
 import ChatIcon from '@mui/icons-material/Chat';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -30,9 +30,10 @@ function Sidebar() {
                     <input placeholder="Найти пользователя" type="text" />
                 </div>
             </div>
-            <div className="sidebar__chats">
+                <div className="sidebar__chats">
                 <SidebarChat />
-            </div>
+                <SidebarChat />
+                </div>
         </div>
     )
 }
