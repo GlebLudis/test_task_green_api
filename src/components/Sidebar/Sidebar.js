@@ -1,9 +1,11 @@
 import React from "react";
 import './Sidebar.css';
+import SidebarChat from "../SidebarChat/SidebarChat";
 import {Avatar, Icon, IconButton} from "@mui/material";
 import DonutLargeIcon from '@mui/icons-material/DonutLarge';
 import ChatIcon from '@mui/icons-material/Chat';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import SearchIcon from '@mui/icons-material/Search';
 
 function Sidebar() {
     return (
@@ -20,13 +22,17 @@ function Sidebar() {
                   <IconButton>
                       <MoreVertIcon/>
                   </IconButton>
-
               </div>
           </div>
             <div className="sidebar__search">
-
+                <div className="sidebar__searchContainer">
+                    <SearchIcon/>
+                    <input placeholder="Найти пользователя" type="text" />
+                </div>
             </div>
-            <div className="sidebar__chats"></div>
+            <div className="sidebar__chats">
+                <SidebarChat />
+            </div>
         </div>
     )
 }
