@@ -1,42 +1,37 @@
-import React, { useState } from "react";
-import { Button, TextField } from "@mui/material";
-import { auth } from "../firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { useNavigate, Link } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {useAuth} from "../context/AuthContext";
 
-const Loginpage = () => {
-    const [err, setErr] = useState(false);
+
+const Loginpage = ({ user, setUser }) => {
+    const { authData, setAuthData, handleSubmit, state } = useAuth();
     const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const email = e.target[0].value;
-        const password = e.target[1].value;
-
-        try {
-            await signInWithEmailAndPassword(auth, email, password);
+    useEffect(() => {
+        if (state.user) {
             navigate("/");
-        } catch (err) {
-            setErr(true);
+        } else {
+            navigate("/login");
         }
+    }, []);
+
+    const handleChange = (e) => {
+        e.preventDefault();
+        const { name, value } = e.target;
+        setAuthData(Object.assign(authData, { [name]: value }));
     };
 
     return (
-        <div className="formContainer">
-            <div className="formWrapper">
-                <span className="logo">CHATAPP</span>
-                <form onSubmit={handleSubmit}>
-                    <TextField id="standard-basic" label="E-mail" variant="standard" />
-                    <TextField id="standard-basic" label="Password" variant="standard" />
-                    <Button variant="contained" type="submit">
-                        Login
-                    </Button>
-                    {err && <span>Something went wrong</span>}
+        <div>
+                <form onSubmit={handleSubmit} className="login__form">
+                    <label htmlFor="instance">idInstance</label>
+                    <input id="instance" type="text"
+                           onChange={handleChange}/>
+                    <label htmlFor="token">apiTokenInstance</label>
+                    <input id="token" type="text"
+                           onChange={handleChange}/>
+                    <button type="submit">Войти</button>
                 </form>
-                <p>
-                    You don't have an account? <Link to="/register">Register </Link>
-                </p>
-            </div>
         </div>
     );
 };

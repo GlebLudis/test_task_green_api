@@ -1,16 +1,27 @@
 import React from "react";
 import './App.css';
-import Sidebar from "./components/Sidebar/Sidebar";
-import Chat from "./components/Chat/Chat";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Chatpage from "./pages/chatpage";
+import Loginpage from "./pages/loginpage";
+import AuthContextProvider from "./context/AuthContext";
+import ContactContextProvider from "./context/UsersContext";
+import ChatContextProvider from "./context/ChatContextProvider";
+
 
 function App() {
   return (
-      <div className='app'>
-        <div className="app__body">
-            <Sidebar />
-            <Chat/>
-        </div>
-      </div>
+      <BrowserRouter>
+              <AuthContextProvider>
+                  <ContactContextProvider>
+                      <ChatContextProvider>
+                          <Routes>
+                              <Route exact path="/login" element={<Loginpage />} />
+                              <Route exact path="/" element={<Chatpage />} />
+                          </Routes>
+                      </ChatContextProvider>
+                  </ContactContextProvider>
+              </AuthContextProvider>
+      </BrowserRouter>
   );
 }
 
